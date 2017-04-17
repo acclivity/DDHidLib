@@ -122,7 +122,7 @@
     mLogicalDeviceElements = [[NSMutableArray alloc] init];
 
     [self initLogicalDeviceElements];
-    int logicalDeviceCount = [mLogicalDeviceElements count];
+    NSUInteger logicalDeviceCount = [mLogicalDeviceElements count];
     if (logicalDeviceCount ==  0)
     {
         [self release];
@@ -355,11 +355,10 @@
 - (int) normalizeValue: (int) value
             forElement: (DDHidElement *) element;
 {
-    int normalizedUnits = DDHID_JOYSTICK_VALUE_MAX - DDHID_JOYSTICK_VALUE_MIN;
-    int elementUnits = [element maxValue] - [element minValue];
+    NSInteger normalizedUnits = DDHID_JOYSTICK_VALUE_MAX - DDHID_JOYSTICK_VALUE_MIN;
+    NSInteger elementUnits = [element maxValue] - [element minValue];
     
-    int normalizedValue = (((int64_t)(value - [element minValue]) * normalizedUnits) /
-                           elementUnits) + DDHID_JOYSTICK_VALUE_MIN;
+    NSInteger normalizedValue = (((value - [element minValue]) * normalizedUnits) / elementUnits) + DDHID_JOYSTICK_VALUE_MIN;
     return normalizedValue;
 }
 

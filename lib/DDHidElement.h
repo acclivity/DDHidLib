@@ -57,8 +57,8 @@
 - (BOOL) isArray;
 - (BOOL) isRelative;
 - (BOOL) isWrapping;
-- (long) maxValue;
-- (long) minValue;
+- (NSInteger) maxValue;
+- (NSInteger) minValue;
 
 - (NSComparisonResult) compareByUsage: (DDHidElement *) device;
 

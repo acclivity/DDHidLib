@@ -154,12 +154,12 @@
     return [mProperties ddhid_boolForString: kIOHIDElementIsWrappingKey];
 }
 
-- (long) maxValue;
+- (NSInteger) maxValue;
 {
     return [mProperties ddhid_longForString: kIOHIDElementMaxKey];
 }
 
-- (long) minValue;
+- (NSInteger) minValue;
 {
     return [mProperties ddhid_longForString: kIOHIDElementMinKey];
 }
