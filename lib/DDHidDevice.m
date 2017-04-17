@@ -307,7 +307,7 @@ return retVal;
     if ([self logicalDeviceCount] > 1)
     {
         productName = [productName stringByAppendingString:
-                       [NSString stringWithFormat:@" #%d", mLogicalDeviceNumber + 1]];
+                       [NSString stringWithFormat:@" #%d", (int)mLogicalDeviceNumber + 1]];
     }
     return productName;
 }

@@ -156,7 +156,7 @@
     [super dealloc];
 }
 
-- (int) logicalDeviceCount;
+- (NSUInteger) logicalDeviceCount;
 {
     return [mLogicalDeviceElements count];
 }

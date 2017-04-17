@@ -74,7 +74,7 @@
          logicalDeviceNumber: (int) logicalDeviceNumber 
                        error: (NSError **) error;
 
-- (int) logicalDeviceCount;
+- (NSUInteger) logicalDeviceCount;
 
 #pragma mark -
 #pragma mark Joystick Elements
