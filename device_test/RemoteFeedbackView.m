@@ -91,10 +91,6 @@
 				   fraction: 1.0];
 	
 	
-	if (lastButtonIdentifier == -1) {
-		return;
-	}
-	
 	DDHidAppleRemoteEventIdentifier buttonToSelect = lastButtonIdentifier;
 	
 	NSPoint buttonPos = NSZeroPoint;

@@ -28,28 +28,28 @@
 @interface DDHidJoystick (DDHidJoystickDelegate)
 
 - (void) ddhidJoystick: (DDHidJoystick *)  joystick
-                 stick: (unsigned) stick
-              xChanged: (int) value;
+                 stick: (NSUInteger) stick
+              xChanged: (NSInteger) value;
 
 - (void) ddhidJoystick: (DDHidJoystick *)  joystick
-                 stick: (unsigned) stick
-              yChanged: (int) value;
+                 stick: (NSUInteger) stick
+              yChanged: (NSInteger) value;
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-                 stick: (unsigned) stick
-             otherAxis: (unsigned) otherAxis
-          valueChanged: (int) value;
+                 stick: (NSUInteger) stick
+             otherAxis: (NSUInteger) otherAxis
+          valueChanged: (NSInteger) value;
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-                 stick: (unsigned) stick
-             povNumber: (unsigned) povNumber
-          valueChanged: (int) value;
+                 stick: (NSUInteger) stick
+             povNumber: (NSUInteger) povNumber
+          valueChanged: (NSInteger) value;
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-            buttonDown: (unsigned) buttonNumber;
+            buttonDown: (NSUInteger) buttonNumber;
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-              buttonUp: (unsigned) buttonNumber;
+              buttonUp: (NSUInteger) buttonNumber;
 
 @end
 
@@ -60,27 +60,27 @@
 - (void) addStick: (NSArray *) stickElements;
 - (void) ddhidQueueHasEvents: (DDHidQueue *) hidQueue;
 
-- (int) normalizeValue: (int) value
+- (NSInteger) normalizeValue: (NSInteger) value
             forElement: (DDHidElement *) element;
 
-- (int) povValue: (int) value
-      forElement: (DDHidElement *) element;
+- (NSInteger) povValue: (NSInteger) value
+            forElement: (DDHidElement *) element;
 
-- (BOOL) findStick: (unsigned *) stick
+- (BOOL) findStick: (NSUInteger *) stick
            element: (DDHidElement **) elementOut
    withXAxisCookie: (IOHIDElementCookie) cookie;
 
-- (BOOL) findStick: (unsigned *) stick
+- (BOOL) findStick: (NSUInteger *) stick
            element: (DDHidElement **) elementOut
    withYAxisCookie: (IOHIDElementCookie) cookie;
 
-- (BOOL) findStick: (unsigned *) stickOut
-         otherAxis: (unsigned *) axisOut
+- (BOOL) findStick: (NSUInteger *) stickOut
+         otherAxis: (NSUInteger *) axisOut
            element: (DDHidElement **) elementOut
         withCookie: (IOHIDElementCookie) cookie;
 
-- (BOOL) findStick: (unsigned *) stickOut
-         povNumber: (unsigned *) povNumber
+- (BOOL) findStick: (NSUInteger *) stickOut
+         povNumber: (NSUInteger *) povNumber
            element: (DDHidElement **) elementOut
         withCookie: (IOHIDElementCookie) cookie;
 
@@ -172,7 +172,7 @@
     return mButtonElements; 
 }
 
-- (unsigned) numberOfButtons;
+- (NSUInteger) numberOfButtons;
 {
     return [mButtonElements count];
 }
@@ -180,12 +180,12 @@
 #pragma mark -
 #pragma mark Sticks - indexed accessors
 
-- (unsigned int) countOfSticks 
+- (NSUInteger) countOfSticks 
 {
     return [mSticks count];
 }
 
-- (DDHidJoystickStick *) objectInSticksAtIndex: (unsigned int)index 
+- (DDHidJoystickStick *) objectInSticksAtIndex: (NSUInteger)index
 {
     return [mSticks objectAtIndex: index];
 }
@@ -299,30 +299,30 @@
         IOHIDElementCookie cookie = [event elementCookie];
         SInt32 value = [event value];
         DDHidElement * element;
-        unsigned stick;
-        unsigned otherAxis;
-        unsigned povNumber;
+        NSUInteger stick;
+        NSUInteger otherAxis;
+        NSUInteger povNumber;
         if ([self findStick: &stick element: &element withXAxisCookie: cookie])
         {
-            int normalizedValue = [self normalizeValue: value forElement: element];
+            NSInteger normalizedValue = [self normalizeValue: value forElement: element];
             [self ddhidJoystick: self stick: stick xChanged: normalizedValue];
         }
         else if ([self findStick: &stick element: &element withYAxisCookie: cookie])
         {
-            int normalizedValue = [self normalizeValue: value forElement: element];
+            NSInteger normalizedValue = [self normalizeValue: value forElement: element];
             [self ddhidJoystick: self stick: stick yChanged: normalizedValue];
         }
         else if ([self findStick: &stick otherAxis: &otherAxis element: &element
                       withCookie: cookie])
         {
-            int normalizedValue = [self normalizeValue: value forElement: element];
+            NSInteger normalizedValue = [self normalizeValue: value forElement: element];
             [self ddhidJoystick: self stick: stick
                       otherAxis: otherAxis valueChanged: normalizedValue];
         }
         else if ([self findStick: &stick povNumber: &povNumber element: &element
                       withCookie: cookie])
         {
-            int povValue = [self povValue: value forElement: element];
+            NSInteger povValue = [self povValue: value forElement: element];
             [self ddhidJoystick: self stick: stick
                       povNumber: povNumber valueChanged: povValue];
         }
@@ -352,7 +352,7 @@
     }
 }
 
-- (int) normalizeValue: (int) value
+- (NSInteger) normalizeValue: (NSInteger) value
             forElement: (DDHidElement *) element;
 {
     NSInteger normalizedUnits = DDHID_JOYSTICK_VALUE_MAX - DDHID_JOYSTICK_VALUE_MIN;
@@ -362,11 +362,11 @@
     return normalizedValue;
 }
 
-- (int) povValue: (int) value
+- (NSInteger) povValue: (NSInteger) value
       forElement: (DDHidElement *) element;
 {
-    long max = [element maxValue];
-    long min = [element minValue];
+    NSInteger max = [element maxValue];
+    NSInteger min = [element minValue];
     
     // If the value is outside the min/max range, it's probably in a
     // centered/NULL state.
@@ -380,11 +380,11 @@
 	return 36000 / (max - min + 1) * (value - min);
 }
 
-- (BOOL) findStick: (unsigned *) stick
+- (BOOL) findStick: (NSUInteger *) stick
            element: (DDHidElement **) elementOut
    withXAxisCookie: (IOHIDElementCookie) cookie;
 {
-    unsigned i;
+    NSUInteger i;
     for (i = 0; i < [mSticks count]; i++)
     {
         DDHidElement * element = [[mSticks objectAtIndex: i] xAxisElement];
@@ -398,11 +398,11 @@
     return NO;
 }
 
-- (BOOL) findStick: (unsigned *) stick
+- (BOOL) findStick: (NSUInteger *) stick
            element: (DDHidElement **) elementOut
    withYAxisCookie: (IOHIDElementCookie) cookie;
 {
-    unsigned i;
+    NSUInteger i;
     for (i = 0; i < [mSticks count]; i++)
     {
         DDHidElement * element = [[mSticks objectAtIndex: i] yAxisElement];
@@ -416,8 +416,8 @@
     return NO;
 }
 
-- (BOOL) findStick: (unsigned *) stickOut
-         otherAxis: (unsigned *) axisOut
+- (BOOL) findStick: (NSUInteger *) stickOut
+         otherAxis: (NSUInteger *) axisOut
            element: (DDHidElement **) elementOut
         withCookie: (IOHIDElementCookie) cookie;
 {
@@ -441,8 +441,8 @@
     return NO;
 }
 
-- (BOOL) findStick: (unsigned *) stickOut
-         povNumber: (unsigned *) povNumber
+- (BOOL) findStick: (NSUInteger *) stickOut
+         povNumber: (NSUInteger *) povNumber
            element: (DDHidElement **) elementOut
         withCookie: (IOHIDElementCookie) cookie;
 {
@@ -471,25 +471,25 @@
 @implementation DDHidJoystick (DDHidJoystickDelegate)
 
 - (void) ddhidJoystick: (DDHidJoystick *)  joystick
-                 stick: (unsigned) stick
-              xChanged: (int) value;
+                 stick: (NSUInteger) stick
+              xChanged: (NSInteger) value;
 {
     if ([mDelegate respondsToSelector: _cmd])
         [mDelegate ddhidJoystick: joystick stick: stick xChanged: value];
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *)  joystick
-                 stick: (unsigned) stick
-              yChanged: (int) value;
+                 stick: (NSUInteger) stick
+              yChanged: (NSInteger) value;
 {
     if ([mDelegate respondsToSelector: _cmd])
         [mDelegate ddhidJoystick: joystick stick: stick yChanged: value];
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-                 stick: (unsigned) stick
-             otherAxis: (unsigned) otherAxis
-          valueChanged: (int) value;
+                 stick: (NSUInteger) stick
+             otherAxis: (NSUInteger) otherAxis
+          valueChanged: (NSInteger) value;
 {
     if ([mDelegate respondsToSelector: _cmd])
         [mDelegate ddhidJoystick: joystick stick: stick otherAxis: otherAxis
@@ -497,9 +497,9 @@
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-                 stick: (unsigned) stick
-             povNumber: (unsigned) povNumber
-          valueChanged: (int) value;
+                 stick: (NSUInteger) stick
+             povNumber: (NSUInteger) povNumber
+          valueChanged: (NSInteger) value;
 {
     if ([mDelegate respondsToSelector: _cmd])
         [mDelegate ddhidJoystick: joystick stick: stick povNumber: povNumber
@@ -507,14 +507,14 @@
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-            buttonDown: (unsigned) buttonNumber;
+            buttonDown: (NSUInteger) buttonNumber;
 {
     if ([mDelegate respondsToSelector: _cmd])
         [mDelegate ddhidJoystick: joystick buttonDown: buttonNumber];
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-              buttonUp: (unsigned) buttonNumber;  
+              buttonUp: (NSUInteger) buttonNumber;
 {
     if ([mDelegate respondsToSelector: _cmd])
         [mDelegate ddhidJoystick: joystick buttonUp: buttonNumber];
@@ -622,12 +622,12 @@
 #pragma mark -
 #pragma mark mStickElements - indexed accessors
 
-- (unsigned int) countOfStickElements 
+- (NSUInteger) countOfStickElements
 {
     return [mStickElements count];
 }
 
-- (DDHidElement *) objectInStickElementsAtIndex: (unsigned int)index 
+- (DDHidElement *) objectInStickElementsAtIndex: (NSUInteger)index
 {
     return [mStickElements objectAtIndex: index];
 }
@@ -635,12 +635,12 @@
 #pragma mark -
 #pragma mark PovElements - indexed accessors
 
-- (unsigned int) countOfPovElements;
+- (NSUInteger) countOfPovElements;
 {
     return [mPovElements count];
 }
 
-- (DDHidElement *) objectInPovElementsAtIndex: (unsigned int)index;
+- (DDHidElement *) objectInPovElementsAtIndex: (NSUInteger)index;
 {
     return [mPovElements objectAtIndex: index];
 }

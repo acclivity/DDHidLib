@@ -98,19 +98,19 @@
     }
 }
 
-- (int) xAxis;
+- (NSInteger) xAxis;
 {
     return mXAxis;
 }
 
-- (int) yAxis;
+- (NSInteger) yAxis;
 {
     return mYAxis;
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *)  joystick
-                 stick: (unsigned) stick
-              xChanged: (int) value;
+                 stick: (NSUInteger) stick
+              xChanged: (NSInteger) value;
 {
     [self willChangeValueForKey: @"xAxis"];
     mXAxis = value;
@@ -118,8 +118,8 @@
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *)  joystick
-                 stick: (unsigned) stick
-              yChanged: (int) value;
+                 stick: (NSUInteger) stick
+              yChanged: (NSInteger) value;
 {
     [self willChangeValueForKey: @"yAxis"];
     mYAxis = value;
@@ -127,32 +127,32 @@
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-                 stick: (unsigned) stick
-             otherAxis: (unsigned) otherAxis
-          valueChanged: (int) value;
+                 stick: (NSUInteger) stick
+             otherAxis: (NSUInteger) otherAxis
+          valueChanged: (NSInteger) value;
 {
     // Somehow display values here
-    NSLog(@"Stick: %d, other axis: %d, changed: %d", stick, otherAxis, value);
+    NSLog(@"Stick: %d, other axis: %d, changed: %d", (unsigned int)stick, (unsigned int)otherAxis, (int)value);
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-                 stick: (unsigned) stick
-             povNumber: (unsigned) povNumber
-          valueChanged: (int) value;
+                 stick: (NSUInteger) stick
+             povNumber: (NSUInteger) povNumber
+          valueChanged: (NSInteger) value;
 {
     // Somehow display values here
-    NSLog(@"Stick: %d, POV number: %d, changed: %d", stick, povNumber, value);
+    NSLog(@"Stick: %d, POV number: %d, changed: %d", (unsigned int)stick, (unsigned int)povNumber, (int)value);
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-            buttonDown: (unsigned) buttonNumber;
+            buttonDown: (NSUInteger) buttonNumber;
 {
     ButtonState * state = [mJoystickButtons objectAtIndex: buttonNumber];
     [state setPressed: YES];
 }
 
 - (void) ddhidJoystick: (DDHidJoystick *) joystick
-              buttonUp: (unsigned) buttonNumber;
+              buttonUp: (NSUInteger) buttonNumber;
 {
     ButtonState * state = [mJoystickButtons objectAtIndex: buttonNumber];
     [state setPressed: NO];

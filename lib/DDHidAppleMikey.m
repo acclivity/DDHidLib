@@ -34,7 +34,7 @@
 @interface DDHidAppleMikey (DDHidAppleMikeyDelegate)
 
 - (void) ddhidAppleMikey: (DDHidAppleMikey *) mikey
-               press: (unsigned) usageId
+               press: (NSUInteger) usageId
                 upOrDown:(BOOL)upOrDown;
 
 @end
@@ -90,7 +90,7 @@
     return mPressElements;
 }
 
-- (unsigned) numberOfKeys;
+- (NSUInteger) numberOfKeys;
 {
     return [mPressElements count];
 }
@@ -117,7 +117,7 @@
 
 @implementation DDHidAppleMikey (DDHidAppleMikeyDelegate)
 
-- (void) ddhidAppleMikey:(DDHidAppleMikey *)mikey press:(unsigned int)usageId upOrDown:(BOOL)upOrDown
+- (void) ddhidAppleMikey:(DDHidAppleMikey *)mikey press:(NSUInteger)usageId upOrDown:(BOOL)upOrDown
 {
     if ([mDelegate respondsToSelector: _cmd])
         [mDelegate ddhidAppleMikey: mikey press: usageId upOrDown:(BOOL)upOrDown];

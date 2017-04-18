@@ -100,7 +100,7 @@ static void exit_sleeper()
     NSSavePanel * panel = [NSSavePanel savePanel];
     
     /* set up new attributes */
-    [panel setRequiredFileType: @"plist"];
+    [panel setAllowedFileTypes: @[@"plist"]];
     [panel setAllowsOtherFileTypes: NO];
     [panel setCanSelectHiddenExtension: YES];
     
