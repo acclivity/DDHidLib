@@ -1038,6 +1038,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 55D592200BAE2E4500364849 /* versions.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1069,6 +1070,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USE_HEADERMAP = YES;
 				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
@@ -1077,6 +1079,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 55D592200BAE2E4500364849 /* versions.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1106,6 +1109,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
+				USE_HEADERMAP = YES;
 				VALID_ARCHS = x86_64;
 			};
 			name = Release;
